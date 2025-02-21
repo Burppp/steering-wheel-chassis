@@ -1,0 +1,3 @@
+D:/GItClone/sztu_sentry/remote_cube_sentry/cmake-build-debug-mingw-stm32/CMakeFiles/remote_cube_sentry.elf.dir
+D:/GItClone/sztu_sentry/remote_cube_sentry/cmake-build-debug-mingw-stm32/CMakeFiles/edit_cache.dir
+D:/GItClone/sztu_sentry/remote_cube_sentry/cmake-build-debug-mingw-stm32/CMakeFiles/rebuild_cache.dir

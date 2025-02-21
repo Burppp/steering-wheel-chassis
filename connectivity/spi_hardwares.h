@@ -1,0 +1,8 @@
+//
+// Created by nobody_knows on 23-3-13.
+//
+
+#ifndef REMOTE_CUBE_SENTRY_SPI_HARDWARES_H
+#define REMOTE_CUBE_SENTRY_SPI_HARDWARES_H
+
+#endif //REMOTE_CUBE_SENTRY_SPI_HARDWARES_H
