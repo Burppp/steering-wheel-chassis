@@ -1,0 +1,68 @@
+{
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.errorSquiggles": "disabled",
+  "C_Cpp.autoAddFileAssociations": false,
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/app",
+    "${workspaceFolder}/bsp",
+    "${workspaceFolder}/Core/Inc",
+    "${workspaceFolder}/Drivers/CMSIS/Include",
+    "D:/Keil5/ARM/ARMCC/include",
+    "${workspaceFolder}/Drivers/CMSIS/Device/ST/**",
+    "${workspaceFolder}/Drivers/**",
+    "${workspaceFolder}/**"
+  ],
+  "C_Cpp.default.browse.path": [
+    "${workspaceFolder}/app",
+    "${workspaceFolder}/bsp",
+    "${workspaceFolder}/Core/**"
+  ],
+  "C_Cpp.default.defines": [
+    "STM32F407xx",
+    "USE_HAL_DRIVER",
+    "__STATIC_INLINE=static inline",
+    "__attribute__=__attribute__",
+    "__attribute__((section(x)))=__attribute__((section(x)))",
+    "__attribute__((packed))=__attribute__((packed))"
+  ],
+  "C_Cpp.default.cStandard": "c11",
+  "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.intelliSenseMode": "gcc-x64",
+  "files.associations": {
+    "*.h": "c",
+    "*.c": "c",
+    "*.hpp": "cpp",
+    "*.cpp": "cpp",
+    "stdlib.h": "c",
+    "stdbool.h": "c",
+    "stdint.h": "c",
+    "main.h": "c",
+    "gpio.h": "c",
+    "tim.h": "c",
+    "usart.h": "c",
+    "can.h": "c",
+    "spi.h": "c",
+    "adc.h": "c",
+    "dma.h": "c",
+    "crc.h": "c",
+    "rng.h": "c",
+    "object_dictionary.h": "c",
+    "bsp_can.h": "c",
+    "packet_param.h": "c",
+    "struct_typedef.h": "c",
+    "steering_controller.h": "c",
+    "travelling_controller.h": "c"
+  },
+  "editor.formatOnSave": false,
+  "clangd.arguments": [
+    "--header-insertion=never",
+    "--completion-style=detailed",
+    "--background-index",
+    "--clang-tidy",
+    "--fallback-style=Google",
+    "--compile-commands-dir=.",
+    "--log=verbose"
+  ],
+  "clangd.checkUpdates": true,
+  "clangd.onConfigChanged": "restart"
+} 

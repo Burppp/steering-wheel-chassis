@@ -1,0 +1,36 @@
+CompileFlags:
+  Add: 
+    - -Iapp
+    - -Ibsp
+    - -ICore/Inc
+    - -IDrivers/CMSIS/Include
+    - -IDrivers/STM32F4xx_HAL_Driver/Inc
+    - -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy
+    - -IDrivers/CMSIS/Device/ST/STM32F4xx/Include
+    - -IMiddlewares/Third_Party/FreeRTOS/Source/include
+    - -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
+    - -IC:/MinGW/include
+    - -IC:/MinGW/lib/gcc/mingw32/6.3.0/include
+    - -IC:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed
+    - -DSTM32F407xx
+    - -DUSE_HAL_DRIVER
+    - -D__STATIC_INLINE=static inline
+    - -D__attribute__=__attribute__
+    - -D__attribute__((section(x)))=__attribute__((section(x)))
+    - -D__attribute__((packed))=__attribute__((packed))
+    - -std=c11
+    - -target=i686-pc-windows-gnu
+    - -fms-extensions
+
+Index:
+  Background: true
+
+Diagnostics:
+  ClangTidy:
+    Add: [performance-*, modernize-*]
+    Remove: [performance-unnecessary-value-param]
+
+InlayHints:
+  Enabled: yes
+  ParameterNames: true
+  DeducedTypes: true 

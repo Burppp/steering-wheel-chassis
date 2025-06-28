@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "C",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/app",
+        "${workspaceFolder}/bsp",
+        "${workspaceFolder}/Core/Inc",
+        "D:/gcc-v13.2.0-mingw-v11.0.0-i686/include",
+        "D:/gcc-v13.2.0-mingw-v11.0.0-i686/lib/gcc/i686-w64-mingw32/13.2.0/include",
+        "D:/gcc-v13.2.0-mingw-v11.0.0-i686/i686-w64-mingw32/include"
+      ],
+      "defines": [],
+      "compilerPath": "D:/gcc-v13.2.0-mingw-v11.0.0-i686/bin/gcc.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64"
+    }
+  ],
+  "version": 4
+} 

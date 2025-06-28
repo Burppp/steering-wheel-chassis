@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -483,8 +483,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     HAL_GPIO_Init(LASER_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM3_MspPostInit 1 */
-      HAL_TIM_Base_Start(&htim3);
-      HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+
   /* USER CODE END TIM3_MspPostInit 1 */
   }
   else if(timHandle->Instance==TIM4)
@@ -505,8 +504,6 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     HAL_GPIO_Init(BUZZER_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM4_MspPostInit 1 */
-      HAL_TIM_Base_Start(&htim4);
-      HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
 
   /* USER CODE END TIM4_MspPostInit 1 */
   }
@@ -530,10 +527,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM5_MspPostInit 1 */
-      HAL_TIM_Base_Start(&htim5);
-      HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
-      HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
-      HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
+
   /* USER CODE END TIM5_MspPostInit 1 */
   }
   else if(timHandle->Instance==TIM8)
@@ -575,8 +569,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM10_MspPostInit 1 */
-      HAL_TIM_Base_Start(&htim10);
-      HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
+
   /* USER CODE END TIM10_MspPostInit 1 */
   }
 
