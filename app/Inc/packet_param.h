@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define CHASSIS_TASK_INIT_TIME 200
+
 #define SDO_MOTOR_ID 0x601
 #define SDO_SELF_ID 0x581
 

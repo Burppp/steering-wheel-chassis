@@ -94,7 +94,7 @@ typedef struct OD_Entry {
     uint16_t index;          // 主索引
     uint8_t subindex;        // 子索引
     OD_DataType dataType;    // 数据类型
-    void* data;              // 数据指针
+    uint8_t* data;           // 数据指针
     bool accessRead;         // 读权限
     bool accessWrite;        // 写权限
     struct OD_Entry* next;   // 指向下一个节点的指针
@@ -112,8 +112,8 @@ void OD_Destroy(ObjectDictionary* od);
 bool OD_AddEntry(ObjectDictionary* od, OD_Entry* entry);
 bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex);
 OD_Entry* OD_GetEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex);
-bool OD_SetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* value);
-bool OD_GetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* value);
+bool OD_SetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, uint8_t* value);
+bool OD_GetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, uint8_t* value);
 void OD_PrintAll(ObjectDictionary* od);  // 打印所有条目（用于调试）
 bool OD_User_AddEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex, OD_DataType dataType, void* data, bool accessRead, bool accessWrite);
 bool OD_User_Init(ObjectDictionary* od);

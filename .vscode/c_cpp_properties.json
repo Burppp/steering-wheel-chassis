@@ -4,8 +4,8 @@
       "name": "C",
       "includePath": [
         "${workspaceFolder}/**",
-        "${workspaceFolder}/app",
-        "${workspaceFolder}/bsp",
+        "${workspaceFolder}/app/Inc",
+        "${workspaceFolder}/bsp/Inc",
         "${workspaceFolder}/Core/Inc",
         "D:/gcc-v13.2.0-mingw-v11.0.0-i686/include",
         "D:/gcc-v13.2.0-mingw-v11.0.0-i686/lib/gcc/i686-w64-mingw32/13.2.0/include",

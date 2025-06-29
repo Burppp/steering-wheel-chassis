@@ -7,12 +7,12 @@
   {
     "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
     "command": "C:/MinGW/bin/gcc.exe -Iapp -Ibsp -ICore/Inc -IDrivers/CMSIS/Include -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -DSTM32F407xx -DUSE_HAL_DRIVER -D__STATIC_INLINE=static inline -D__attribute__=__attribute__ -D__attribute__((section(x)))=__attribute__((section(x))) -D__attribute__((packed))=__attribute__((packed)) -D__attribute__((noreturn))=__attribute__((noreturn)) -std=c11 -fms-extensions -c app/object_dictionary.c -o app/object_dictionary.o",
-    "file": "app/object_dictionary.c"
+    "file": "app/Src/object_dictionary.c"
   },
   {
     "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
     "command": "C:/MinGW/bin/gcc.exe -Iapp -Ibsp -ICore/Inc -IDrivers/CMSIS/Include -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -DSTM32F407xx -DUSE_HAL_DRIVER -D__STATIC_INLINE=static inline -D__attribute__=__attribute__ -D__attribute__((section(x)))=__attribute__((section(x))) -D__attribute__((packed))=__attribute__((packed)) -D__attribute__((noreturn))=__attribute__((noreturn)) -std=c11 -fms-extensions -c bsp/bsp_can.c -o bsp/bsp_can.o",
-    "file": "bsp/bsp_can.c"
+    "file": "bsp/Src/bsp_can.c"
   },
   {
     "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
@@ -22,11 +22,16 @@
   {
     "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
     "command": "C:/MinGW/bin/gcc.exe -Iapp -Ibsp -ICore/Inc -IDrivers/CMSIS/Include -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -DSTM32F407xx -DUSE_HAL_DRIVER -D__STATIC_INLINE=static inline -D__attribute__=__attribute__ -D__attribute__((section(x)))=__attribute__((section(x))) -D__attribute__((packed))=__attribute__((packed)) -D__attribute__((noreturn))=__attribute__((noreturn)) -std=c11 -fms-extensions -c app/steering_controller.c -o app/steering_controller.o",
-    "file": "app/steering_controller.c"
+    "file": "app/Src/steering_controller.c"
   },
   {
     "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
     "command": "C:/MinGW/bin/gcc.exe -Iapp -Ibsp -ICore/Inc -IDrivers/CMSIS/Include -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -DSTM32F407xx -DUSE_HAL_DRIVER -D__STATIC_INLINE=static inline -D__attribute__=__attribute__ -D__attribute__((section(x)))=__attribute__((section(x))) -D__attribute__((packed))=__attribute__((packed)) -D__attribute__((noreturn))=__attribute__((noreturn)) -std=c11 -fms-extensions -c app/travelling_controller.c -o app/travelling_controller.o",
-    "file": "app/travelling_controller.c"
+    "file": "app/Src/travelling_controller.c"
+  },
+  {
+    "directory": "C:/Users/Lumos/Documents/GitHub/steering-wheel-chassis",
+    "command": "C:/MinGW/bin/gcc.exe -Iapp -Ibsp -ICore/Inc -IDrivers/CMSIS/Include -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -DSTM32F407xx -DUSE_HAL_DRIVER -D__STATIC_INLINE=static inline -D__attribute__=__attribute__ -D__attribute__((section(x)))=__attribute__((section(x))) -D__attribute__((packed))=__attribute__((packed)) -D__attribute__((noreturn))=__attribute__((noreturn)) -std=c11 -fms-extensions -c app/data_update.c -o app/data_update.o",
+    "file": "app/Src/data_update.c"
   }
 ] 

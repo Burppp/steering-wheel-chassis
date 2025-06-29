@@ -32,9 +32,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "object_dictionary.h"
 #include "bsp_can.h"
-#include "packet_param.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +47,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-ObjectDictionary* od = NULL;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -117,14 +114,6 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
     can_filter_init();
-  
-    od = OD_Create();
-    if (od == NULL) {
-        return 1;
-    }
-    OD_User_Init(od);
-
-    motor_mode(TORQUE_CONTROL, 1);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */

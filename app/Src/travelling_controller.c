@@ -7,6 +7,9 @@ void travellingCtrl_task(void const * pvParameters)
 {
     while(1)
     {
-        osDelay(100);
+        vTaskSuspendAll();
+
+        xTaskResumeAll();
+        vTaskDelay(1);
     }
 }

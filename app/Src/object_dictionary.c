@@ -3,8 +3,13 @@
 #include <string.h>
 #include <stdio.h>
 
-// 创建对象字典
-ObjectDictionary* OD_Create(void) {
+/**
+  * @brief     Create object dictionary
+  * @return    Object dictionary pointer
+  * @note      If creation fails, return NULL. If creation succeeds, return object dictionary pointer.
+  */
+ObjectDictionary* OD_Create(void) 
+{
     ObjectDictionary* od = (ObjectDictionary*)malloc(sizeof(ObjectDictionary));
     if (od == NULL) {
         return NULL;
@@ -15,13 +20,18 @@ ObjectDictionary* OD_Create(void) {
     return od;
 }
 
-// 销毁对象字典
-void OD_Destroy(ObjectDictionary* od) {
+/**
+  * @brief     Destroy object dictionary
+  * @param[in] od: Object dictionary pointer
+  * @note      If destruction fails, return. If destruction succeeds, return.
+  */
+void OD_Destroy(ObjectDictionary* od) 
+{
     if (od == NULL) {
         return;
     }
 
-    // 遍历链表释放所有节点
+    // traverse the linked list and release all nodes
     OD_Entry* current = od->head;
     while (current != NULL) {
         OD_Entry* next = current->next;
@@ -35,8 +45,16 @@ void OD_Destroy(ObjectDictionary* od) {
     free(od);
 }
 
-// 查找条目
-static OD_Entry* OD_FindEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
+/**
+  * @brief     Find entry
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @return    Entry pointer
+  * @note      If finding fails, return NULL. If finding succeeds, return entry pointer.
+  */
+static OD_Entry* OD_FindEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) 
+{
     if(od == NULL || od->head == NULL)
         return NULL;
         
@@ -53,8 +71,14 @@ static OD_Entry* OD_FindEntry(ObjectDictionary* od, uint16_t index, uint8_t subi
     return NULL;
 }
 
-// 获取数据类型大小
-static size_t OD_GetDataTypeSize(OD_DataType dataType) {
+/**
+  * @brief     Get data type size
+  * @param[in] dataType: Data type
+  * @return    Data type size
+  * @note      If getting fails, return 0. If getting succeeds, return data type size.
+  */
+static size_t OD_GetDataTypeSize(OD_DataType dataType) 
+{
     switch (dataType) {
         case OD_TYPE_BOOLEAN:
         case OD_TYPE_INT8:
@@ -68,19 +92,26 @@ static size_t OD_GetDataTypeSize(OD_DataType dataType) {
         case OD_TYPE_FLOAT32:
             return 4;
         case OD_TYPE_STRING:
-            return 256; // 默认字符串长度
+            return 256; // default string length
         default:
             return 0;
     }
 }
 
-// 添加条目
-bool OD_AddEntry(ObjectDictionary* od, OD_Entry* entry) {
+/**
+  * @brief     Add entry
+  * @param[in] od: Object dictionary pointer
+  * @param[in] entry: Entry pointer
+  * @return    true: Add entry successfully, false: Add entry failed
+  * @note      If adding fails, return false. If adding succeeds, return true.
+  */
+bool OD_AddEntry(ObjectDictionary* od, OD_Entry* entry) 
+{
     if (od == NULL || entry == NULL || OD_FindEntry(od, entry->index, entry->subindex) != NULL) {
         return false;
     }
 
-    // 分配数据空间
+    // allocate data space
     size_t dataSize = OD_GetDataTypeSize(entry->dataType);
     if (dataSize == 0) {
         return false;
@@ -90,6 +121,9 @@ bool OD_AddEntry(ObjectDictionary* od, OD_Entry* entry) {
     if (entry->data == NULL) {
         return false;
     }
+    
+    // 初始化内存为0
+    memset(entry->data, 0, dataSize);
 
     // 将新节点插入到链表头部
     entry->next = od->head;
@@ -99,7 +133,20 @@ bool OD_AddEntry(ObjectDictionary* od, OD_Entry* entry) {
     return true;
 }
 
-bool OD_User_AddEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex, OD_DataType dataType, void* data, bool accessRead, bool accessWrite) {
+/**
+  * @brief     Add entry
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @param[in] dataType: Data type
+  * @param[in] data: Data pointer
+  * @param[in] accessRead: Access read
+  * @param[in] accessWrite: Access write
+  * @return    true: Add entry successfully, false: Add entry failed
+  * @note      If adding fails, return false. If adding succeeds, return true.
+  */
+bool OD_User_AddEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex, OD_DataType dataType, void* data, bool accessRead, bool accessWrite) 
+{
     if (od == NULL) {
         return false;
     }
@@ -112,14 +159,14 @@ bool OD_User_AddEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex, OD
     entry->index = index;
     entry->subindex = subindex;
     entry->dataType = dataType;
-    entry->data = NULL;  // 初始化为NULL，让OD_AddEntry来分配内存
+    entry->data = NULL;  // initialize to NULL, let OD_AddEntry allocate memory
     entry->accessRead = accessRead;
     entry->accessWrite = accessWrite;
     entry->next = NULL;
     
     bool result = OD_AddEntry(od, entry);
     if (result && data != NULL) {
-        // 如果添加成功且data不为NULL，则复制数据
+        // if the addition is successful and data is not NULL, copy the data
         size_t dataSize = OD_GetDataTypeSize(dataType);
         if (dataSize > 0) {
             memcpy(entry->data, data, dataSize);
@@ -129,7 +176,14 @@ bool OD_User_AddEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex, OD
     return result;
 }
 
-bool OD_User_Init(ObjectDictionary* od) {
+/**
+  * @brief     Initialize object dictionary
+  * @param[in] od: Object dictionary pointer
+  * @return    true: Initialize successfully, false: Initialize failed
+  * @note      If initialization fails, return false. If initialization succeeds, return true.
+  */
+bool OD_User_Init(ObjectDictionary* od) 
+{
     if (od == NULL) {
         return false;
     }
@@ -137,7 +191,7 @@ bool OD_User_Init(ObjectDictionary* od) {
     uint8_t error_code = 0;
     uint32_t value = 0;
     
-    // 使用&value的地址，但让OD_User_AddEntry内部处理数据复制
+    // use the address of &value, but let OD_User_AddEntry handle the data copy internally
     error_code |= OD_User_AddEntry(od, OD_INDEX_ENCODER_DATA_RESET, OD_SUBINDEX_DEFAULT, OD_TYPE_UINT8, &value, true, true);
     error_code |= OD_User_AddEntry(od, OD_INDEX_PROFILE_SPEED, OD_SUBINDEX_DEFAULT, OD_TYPE_UINT32, &value, true, true);
     error_code |= OD_User_AddEntry(od, OD_INDEX_CONTROL_WORD, OD_SUBINDEX_DEFAULT, OD_TYPE_UINT16, &value, true, true);
@@ -157,8 +211,16 @@ bool OD_User_Init(ObjectDictionary* od) {
     return error_code == 0;
 }
 
-// 删除条目
-bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
+/**
+  * @brief     Remove entry
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @return    true: Remove entry successfully, false: Remove entry failed
+  * @note      If removing fails, return false. If removing succeeds, return true.
+  */
+bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) 
+{
     if (od == NULL || od->head == NULL) {
         return false;
     }
@@ -166,7 +228,7 @@ bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
     OD_Entry* current = od->head;
     OD_Entry* prev = NULL;
 
-    // 如果是头节点
+    // if it is the head node
     if (current->index == index && current->subindex == subindex) {
         od->head = current->next;
         if (current->data != NULL) {
@@ -177,7 +239,7 @@ bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
         return true;
     }
 
-    // 查找要删除的节点
+    // find the node to be deleted
     while (current != NULL) {
         if (current->index == index && current->subindex == subindex) {
             prev->next = current->next;
@@ -195,15 +257,35 @@ bool OD_RemoveEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
     return false;
 }
 
-// 获取条目
-OD_Entry* OD_GetEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex) {
+/**
+  * @brief     Get entry
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @return    Entry pointer
+  * @note      If getting fails, return NULL. If getting succeeds, return entry pointer.
+  */
+OD_Entry* OD_GetEntry(ObjectDictionary* od, uint16_t index, uint8_t subindex)
+ {
     return OD_FindEntry(od, index, subindex);
 }
 
-// 设置值
-bool OD_SetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* value) {
+/**
+  * @brief     Set value
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @param[in] value: Value pointer
+  * @return    true: Set value successfully, false: Set value failed
+  * @note      If setting fails, return false. If setting succeeds, return true.
+  */
+bool OD_SetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, uint8_t* value) 
+{
     OD_Entry* entry = OD_FindEntry(od, index, subindex);
-    if (entry == NULL || !entry->accessWrite || value == NULL) {
+    if (entry == NULL) 
+    {
+        if(value == NULL)
+            return false;
         return false;
     }
 
@@ -216,10 +298,22 @@ bool OD_SetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* v
     return true;
 }
 
-// 获取值
-bool OD_GetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* value) {
+/**
+  * @brief     Get value
+  * @param[in] od: Object dictionary pointer
+  * @param[in] index: Index
+  * @param[in] subindex: Subindex
+  * @param[in] value: Value pointer
+  * @return    true: Get value successfully, false: Get value failed
+  * @note      If getting fails, return false. If getting succeeds, return true.
+  */
+bool OD_GetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, uint8_t* value) 
+{
     OD_Entry* entry = OD_FindEntry(od, index, subindex);
-    if (entry == NULL || !entry->accessRead || value == NULL) {
+    if (entry == NULL) 
+    {
+        if(value == NULL)
+            return false;
         return false;
     }
 
@@ -232,10 +326,15 @@ bool OD_GetValue(ObjectDictionary* od, uint16_t index, uint8_t subindex, void* v
     return true;
 }
 
-// 打印所有条目（用于调试）
-void OD_PrintAll(ObjectDictionary* od) {
+/**
+  * @brief     Print all entries
+  * @param[in] od: Object dictionary pointer
+  * @note      If printing fails, return. If printing succeeds, return.
+  */
+void OD_PrintAll(ObjectDictionary* od) 
+{
     if (od == NULL) {
-        printf("对象字典为空\n");
+        // printf("对象字典为空\n");
         return;
     }
 

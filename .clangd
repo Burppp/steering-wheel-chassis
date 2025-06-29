@@ -1,7 +1,9 @@
 CompileFlags:
   Add: 
-    - -Iapp
-    - -Ibsp
+    - -Iapp/Inc
+    - -Iapp/Src
+    - -Ibsp/Inc
+    - -Ibsp/Src
     - -ICore/Inc
     - -IDrivers/CMSIS/Include
     - -IDrivers/STM32F4xx_HAL_Driver/Inc

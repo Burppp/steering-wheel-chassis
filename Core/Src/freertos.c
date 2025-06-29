@@ -55,6 +55,7 @@ osThreadId imuTaskHandle;
 osThreadId detectTaskHandle;
 osThreadId steeringCtrlTaskHandle;
 osThreadId travellingCtrlTaskHandle;
+osThreadId dataUpdateTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -67,6 +68,7 @@ void INS_task(void const * argument);
 void detect_task(void const * argument);
 void steeringCtrl_task(void const * argument);
 void travellingCtrl_task(void const * argument);
+void dataUpdate_task(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -137,6 +139,9 @@ void MX_FREERTOS_Init(void) {
 
   osThreadDef(travellingCtrlTask, travellingCtrl_task, osPriorityRealtime, 0, 128);
   travellingCtrlTaskHandle = osThreadCreate(osThread(travellingCtrlTask), NULL);
+
+  osThreadDef(dataUpdateTask, dataUpdate_task, osPriorityNormal, 0, 128);
+  dataUpdateTaskHandle = osThreadCreate(osThread(dataUpdateTask), NULL);
   /* USER CODE END RTOS_THREADS */
 
 }
