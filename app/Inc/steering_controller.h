@@ -59,6 +59,7 @@ bool STR_JUST_SPIN();
 float STR_Z_Speed(float Z_Speed);
 void STR_Speed_Ramp(float *receive, float source, float increase, float limit);
 float STR_Encoder_Limit(int16_t Encoder);
+void STR_Speed_Ramp(float *receive, float source, float increase, float limit);
 void STR_Motor_F_dir(Motor_t *motor);
 void STR_F_dir_Update();
 void STR_Z_LR(Motor_t *motor, float Z_speed);

@@ -47,7 +47,7 @@ void STR_Set_Mode()
 
 }
 
-void STR_Motor_First_Angle()
+void STR_Motor_First_Angle(Motor_t *motor)
 {
 
 }
@@ -57,12 +57,12 @@ bool STR_Just_Spin()
 
 }
 
-void STR_Speed_Ramp()
+void STR_Speed_Ramp(float *receive, float source, float increase, float limit)
 {
 
 }
 
-float STR_Encoder_Limit()
+float STR_Encoder_Limit(int16_t Encoder)
 {
 
 }
@@ -92,7 +92,7 @@ void STR_Z_dir_Update()
 
 }
 
-float STR_Get_XY_Fusion_Speed()
+float STR_Get_XY_Fusion_Speed(float X_Speed, float Y_Speed)
 {
 
 }
@@ -102,12 +102,12 @@ float STR_Get_XY_Dir()
 
 }
 
-float STR_Get_XY_Z_Dir_Err()
+float STR_Get_XY_Z_Dir_Err(float xy_dir, float z_dir)
 {
 
 }
 
-void STR_Get_XYZ_Speed(Motor_t* motor, float XY_Speed, float Z_Speed)
+void STR_Get_XYZ_Speed(float XY_Speed, float Z_Speed, Motor_t *motor)
 {
 
 }
