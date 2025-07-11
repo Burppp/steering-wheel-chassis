@@ -3,7 +3,18 @@
 extern Motor_t motor_list[8];
 
 ChassisSteering_t str = {
-    //@TODO: init
+    .mode = CHASSIS_INIT,
+    .vector = {
+        .X_speed = 0,
+        .Y_speed = 0,
+        .Z_speed = 0,
+        .X_speed_k = 0,
+        .Y_speed_k = 0,
+        .Z_speed_k = 0,
+        .target_speed = {0, 0},
+        .increase = 0,
+        .Z_LR = LEFT,
+    }
 };
 
 void steeringCtrl_task(void const * pvParameters)
@@ -13,6 +24,15 @@ void steeringCtrl_task(void const * pvParameters)
     while(1)
     {
         vTaskSuspendAll();
+
+        motor_enable(LF_DRIVE_ID);
+
+        pid_calc(&motor_list[4].speed_loop);
+        pid_calc(&motor_list[5].speed_loop);
+        pid_calc(&motor_list[6].speed_loop);
+        pid_calc(&motor_list[7].speed_loop);
+
+        motor_setTorque(motor_list[4].speed_loop.output, LF_DRIVE_ID);
 
         xTaskResumeAll();
         vTaskDelay(1);
