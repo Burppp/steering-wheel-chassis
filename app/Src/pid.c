@@ -1,6 +1,6 @@
 #include "pid.h"
 
-void pid_init(PID_TypeDef* pid, float kp, float ki, float kd, float output_max, float output_min, float integral_max, float integral_min)
+void pid_init(PID_TypeDef* pid, float kp, float ki, float kd, float output_max, float output_min, float integral_max)
 {
     pid->kp = kp;
     pid->ki = ki;
@@ -8,7 +8,6 @@ void pid_init(PID_TypeDef* pid, float kp, float ki, float kd, float output_max, 
     pid->output_max = output_max;
     pid->output_min = output_min;
     pid->integral_max = integral_max;
-    pid->integral_min = integral_min;
 }
 
 void pid_calc(PID_TypeDef* pid)
@@ -16,7 +15,22 @@ void pid_calc(PID_TypeDef* pid)
     pid->error = pid->ref - pid->feedback;
     pid->integral += pid->error;
     pid->derivative = pid->error - pid->error_last;
-    pid->output = pid->kp * pid->error + pid->ki * pid->integral + pid->kd * pid->derivative;
+    pid->pout = pid->kp * pid->error;
+    pid->iout = pid->ki * pid->integral;
+    if(pid->iout > pid->integral_max)
+    {
+        pid->iout = pid->integral_max;
+    }
+    pid->dout = pid->kd * pid->derivative;
+    pid->output = pid->pout + pid->iout + pid->dout;
+    if(pid->output > pid->output_max)
+    {
+        pid->output = pid->output_max;
+    }
+    else if(pid->output < pid->output_min)
+    {
+        pid->output = pid->output_min;
+    }
     pid->error_last = pid->error;
 }
 

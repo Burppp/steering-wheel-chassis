@@ -1,6 +1,10 @@
 #include "steering_controller.h"
 
 extern Motor_t motor_list[8];
+extern bool is_init;
+extern RC_ctrl_t rc_ctrl;
+Motor_t target_motor;
+int32_t target_position = 0;
 
 ChassisSteering_t str = {
     .mode = CHASSIS_INIT,
@@ -20,20 +24,31 @@ ChassisSteering_t str = {
 void steeringCtrl_task(void const * pvParameters)
 {
     chassis_init();
+
     vTaskDelay(CHASSIS_TASK_INIT_TIME);
     while(1)
     {
         vTaskSuspendAll();
 
-        motor_enable(LF_DRIVE_ID);
+        // if(is_init)
+        // {
+        //     motor_list[1].position_loop.ref += rc_ctrl.rc.ch[0] / 10;
 
-        pid_calc(&motor_list[4].speed_loop);
-        pid_calc(&motor_list[5].speed_loop);
-        pid_calc(&motor_list[6].speed_loop);
-        pid_calc(&motor_list[7].speed_loop);
+        //     motor_list[1].speed_loop.feedback = motor_list[1].speed_feedback;
+        //     motor_list[1].position_loop.feedback = motor_list[1].position_feedback;
+    
+        //     pid_calc(&motor_list[1].position_loop);
+    
+        //     motor_list[1].speed_loop.ref = motor_list[1].position_loop.output;
+        //     pid_calc(&motor_list[1].speed_loop);
+    
+        //     motor_setTorque(motor_list[1].speed_loop.output, LF_DRIVE_ID);
+        // }
 
-        motor_setTorque(motor_list[4].speed_loop.output, LF_DRIVE_ID);
+        target_position += rc_ctrl.rc.ch[0] / 10;
 
+        motor_setPos(target_position, LF_DRIVE_ID);
+		
         xTaskResumeAll();
         vTaskDelay(1);
     }
@@ -41,23 +56,20 @@ void steeringCtrl_task(void const * pvParameters)
 
 void chassis_init(void)
 {
-    motor_init(&motor_list[0], LF_STEER_ID);
-    motor_init(&motor_list[1], RF_STEER_ID);
-    motor_init(&motor_list[2], LB_STEER_ID);
-    motor_init(&motor_list[3], RB_STEER_ID);
-    motor_init(&motor_list[4], LF_DRIVE_ID);
-    motor_init(&motor_list[5], RF_DRIVE_ID);
-    motor_init(&motor_list[6], LB_DRIVE_ID);
-    motor_init(&motor_list[7], RB_DRIVE_ID);
 
-    motor_mode(TORQUE_CONTROL, LF_STEER_ID);
-    motor_mode(TORQUE_CONTROL, RF_STEER_ID);
-    motor_mode(TORQUE_CONTROL, LB_STEER_ID);
-    motor_mode(TORQUE_CONTROL, RB_STEER_ID);
-    motor_mode(TORQUE_CONTROL, LF_DRIVE_ID);
-    motor_mode(TORQUE_CONTROL, RF_DRIVE_ID);
-    motor_mode(TORQUE_CONTROL, LB_DRIVE_ID);
-    motor_mode(TORQUE_CONTROL, RB_DRIVE_ID);
+    motor_encoderDataReset(0x10, LF_DRIVE_ID);
+    osDelay(100);
+
+    motor_init(&motor_list[1], LF_DRIVE_ID);
+    osDelay(100);
+
+    motor_mode(POSITION_CONTROL, LF_DRIVE_ID);
+    osDelay(100);
+
+    motor_enable(LF_DRIVE_ID);
+    osDelay(100);
+
+    motor_setProfileSpeed(150, LF_DRIVE_ID);
 
     //@TODO: offset init
 }

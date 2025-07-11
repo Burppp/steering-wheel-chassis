@@ -45,7 +45,7 @@ void motor_init(Motor_t* motor, ID_ENUM id)
     OD_User_Init(motor->od);
 
     motor->motor_id = id;
-    motor->mode = TORQUE_CONTROL;
+    motor->mode = POSITION_CONTROL;
     motor->is_enable = false;
     motor->position_feedback = 0;
     motor->speed_feedback = 0;
@@ -60,7 +60,7 @@ void motor_init(Motor_t* motor, ID_ENUM id)
 
     motor->offset = 0;
 
-    if(id % 2)
+    if(!(id % 2))
     {
         pid_init(&motor->speed_loop,
             DRV_SPEED_LOOP_KP, 
@@ -68,8 +68,8 @@ void motor_init(Motor_t* motor, ID_ENUM id)
             DRV_SPEED_LOOP_KD, 
             DRV_SPEED_LOOP_OUTPUT_MAX, 
             DRV_SPEED_LOOP_OUTPUT_MIN, 
-            DRV_SPEED_LOOP_INTEGRAL_MAX, 
-            DRV_SPEED_LOOP_INTEGRAL_MIN);
+            DRV_SPEED_LOOP_INTEGRAL_MAX
+           );
     }
     else
     {
@@ -79,16 +79,16 @@ void motor_init(Motor_t* motor, ID_ENUM id)
             STR_POSITION_LOOP_KD, 
             STR_POSITION_LOOP_OUTPUT_MAX, 
             STR_POSITION_LOOP_OUTPUT_MIN, 
-            STR_POSITION_LOOP_INTEGRAL_MAX, 
-            STR_POSITION_LOOP_INTEGRAL_MIN);
+            STR_POSITION_LOOP_INTEGRAL_MAX
+          );
         pid_init(&motor->speed_loop, 
             STR_SPEED_LOOP_KP, 
             STR_SPEED_LOOP_KI, 
             STR_SPEED_LOOP_KD, 
             STR_SPEED_LOOP_OUTPUT_MAX, 
             STR_SPEED_LOOP_OUTPUT_MIN, 
-            STR_SPEED_LOOP_INTEGRAL_MAX, 
-            STR_SPEED_LOOP_INTEGRAL_MIN);
+            STR_SPEED_LOOP_INTEGRAL_MAX
+          );
     }
 }
 
@@ -122,9 +122,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
                 memcpy(data, &can_msg_data[4], data_length);
                 break;
             case CAN_SEND_SUCCESS:
-                break;
+                return;
             case CAN_FAILED:
-                break;
+                return;
             default:
                 break;
         }
@@ -291,6 +291,7 @@ bool motor_enable(uint8_t motor_id)
 	uint16_t value = 0;
 	if(motor_id & 0x01)
 		value = CONTROL_WORD_ABSOLUTE_POSITION_ENABLE;
+        // value = CONTROL_WORD_ENABLE;
 	else
 		value = CONTROL_WORD_ENABLE;
     return SDO_Write(motor_id, OD_INDEX_CONTROL_WORD, OD_SUBINDEX_DEFAULT, &value, OD_TYPE_UINT16);

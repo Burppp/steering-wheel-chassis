@@ -70,7 +70,7 @@ typedef struct
     MODE_ENUM mode;
     bool is_enable;
     int32_t position_feedback;
-    int16_t speed_feedback;
+    float speed_feedback;
     int16_t torque_feedback; //percent
 
     PID_TypeDef position_loop;

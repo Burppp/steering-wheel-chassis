@@ -3,6 +3,7 @@
 
 #include "packet_param.h"
 #include "bsp_can.h"
+#include "remote.h"
 #include "cmsis_os.h"
 
 #define WHEEL_CNT 2
